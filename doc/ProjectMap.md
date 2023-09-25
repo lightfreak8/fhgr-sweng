@@ -49,6 +49,8 @@ procLog --> outLog
 sequenceDiagram
   Camera->>Processor: S1
   Processor->>Display: ffj
+  Display->>Processor: hans
+
 
 
 ```
