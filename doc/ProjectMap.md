@@ -11,7 +11,7 @@
   - Color
   - Ouptut as CSV
 
-## Mermaid
+## Input-Processor-Output Diagram
 ```mermaid
 flowchart LR
 
@@ -44,15 +44,56 @@ procShape --> procColor
 procLog --> outLog
 ```
 
+## Component Diagram
+
 ```mermaid
+flowchart LR
 
-sequenceDiagram
-  Camera->>Processor: S1
-  Processor->>Display: ffj
-  Display->>Processor: hans
+%% BLOBS
+processor(("Processor"))
+camera(("Camera"))
+image(("Image Processor"))
+display(("Display"))
+logger(("Logger"))
 
-
+%% LINKS
+processor <---> |read Image| camera
+processor ---> |send image| image
+image ---> |send result| processor
+processor ---> |display result| display
+processor ---> |log result| logger
 
 ```
 
-## Git Test :)
+## Sequence Diagram
+```mermaid
+sequenceDiagram
+autonumber
+
+activate Processor
+
+Processor ->> Camera: Request Image
+activate Camera
+Camera ->> Processor: Send Image
+deactivate Camera
+
+Processor ->> Image Processor: Send Image
+activate Image Processor
+Image Processor ->> Image Processor: Process Image & Create Timestamp
+Image Processor ->> Processor: Send Result
+deactivate Image Processor
+
+Processor ->> Display: Send Image & Result
+activate Display
+Display ->> Display: Display Image & Result
+deactivate Display
+
+opt When new data received
+  Processor ->> Logger: Send Result
+  activate Logger
+  Logger ->> Logger: Log Result
+  deactivate Logger
+end
+
+deactivate Processor
+```
