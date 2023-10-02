@@ -98,33 +98,62 @@ end
 deactivate Processor
 ```
 
-
 ## Classes
 ```mermaid
-class detect shape
-class detect color
-
-
  classDiagram
-      Animal <|-- Duck
-      Animal <|-- Fish
-      Animal <|-- Zebra
-      Animal : +int age
-      Animal : +String gender
-      Animal: +isMammal()
-      Animal: +mate()
-      class Duck{
-          +String beakColor
-          +swim()
-          +quack()
+
+      class Camera{
+        +init()
+        +requestImage(): cv::Mat
       }
-      class Fish{
-          -int sizeInFeet
-          -canEat()
+
+      ImageProcessor <|-- DetectShape
+      class ImageProcessor{
+          +processImage(): Shape Array
+          -createTimestamp()
       }
-      class Zebra{
-          +bool is_wild
-          +run()
+
+      DetectShape <|-- DetectColor
+      class DetectShape{
+        +detectShapes(): Shape Array
+        -detectCircles(): Circle Array
+        -detectPolygons(): Polygon Array
+      }
+
+      Shape <|-- Circle
+      Shape <|-- Polygon
+
+      class Points{
+        +float x
+        +float y
+      }
+      class Shape{
+        <<abstract>>
+        +getName(): string
+        +color: string
+
+      }
+      class Circle{
+        +radius:float
+        +centerpos:Point
+
+      }
+      class Polygon{
+        +points: Point Array
+      }
+
+      class DetectColor{
+          -detectColor(): string
+      }
+
+      class Display{
+          +displayImage():void
+          +drawContours():void
+      }
+
+      class Logger{
+          +createCSV(): void
+          +writeCSV(): void
       }
 
 ```
