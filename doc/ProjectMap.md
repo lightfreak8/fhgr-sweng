@@ -88,7 +88,7 @@ activate Display
 Display ->> Display: Display Image & Result
 deactivate Display
 
-opt When new data received
+opt When new result received
   Processor ->> Logger: Send Result
   activate Logger
   Logger ->> Logger: Log Result
