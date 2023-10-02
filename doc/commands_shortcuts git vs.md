@@ -15,6 +15,6 @@ git pull
 # vs studio
 ```
 ctrl + j = display terminal
-ctrl + k v = live mermaid tab
+ctrl shift + k v = live mermaid tab
 ctrl + k = mermaid view
 ```
