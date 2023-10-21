@@ -105,6 +105,7 @@ deactivate Processor
       class Camera{
         +init()
         +requestImage(): cv::Mat
+        +requestSample(): cv::Mat
       }
 
       ImageProcessor <|-- DetectShape
