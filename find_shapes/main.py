@@ -1,14 +1,18 @@
 # import files
-import file1
-import file2
+import cv2
+from camera import Camera
+
 
 def main():
-    # Verwenden Sie die importierten Funktionen oder Klassen
-    img = function_in_file1_getImage()
-    obj = ClassInFile2()
-    obj.some_method()
-
-
+    
+    #for testing purposes implement camera class and test functions
+    camera = Camera()
+    img = camera.requestImage()
+    camera.showImage(img)
+    path = "C:/Users/rapha/switchdrive/PHO_Studium/Bildverarbeitung 2/4 Sensorcharakterisierung/material/westconcordorthophoto.png"
+    sample = camera.requestSample(path)
+    camera.showImage(sample)
+    camera.release()
 
 
 
