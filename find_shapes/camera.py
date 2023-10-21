@@ -6,12 +6,14 @@ for opening webcam, capturing image or loading sample by path and release camera
 
 changes:
 1.0     2023-10-21      created
+1.0.1   2023-10-21      public functions description added
 
 public functions:
     __init()__(self):   constructor, if not successfull set to None
     requestImage():     return cv2.Mat or None
-    requestSample():    return cv2.Mat or None
-    showImage()
+    requestSample(string path):    return cv2.Mat or None
+    showImage(cv2.Mat img)
+    release()
 
 
 
