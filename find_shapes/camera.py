@@ -48,8 +48,7 @@ class Camera:
         return sample #returns cv2.Mat or None
     
     def showImage(self, img):
-        image = self.requestImage()
-        if image is None:
+        if img is None:
             print("invalid argument")
         cv2.imshow("Captured Image", img)
         cv2.waitKey(0)
