@@ -23,6 +23,7 @@ git pull
 - merge branches **into current branch (`git checkout ...`)** one `git merge BRANCH_NAME`
 - rename branch `git branch -m OLD_NAME NEW_NAME`
 - delete branch `git branch -d BRANCH_NAME`
+- get remote branch to local machine `git branch -t LOCAL_BRANCH origin/REMOTE_BRANCH`
 
 ## order of commands when creating a feature
 1. `git checkout -b FEATURE_NAME`
