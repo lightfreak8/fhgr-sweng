@@ -1,7 +1,7 @@
 """
-point2d.py
+point.py
 
-class Point2D:
+class Point:
 containing x and y coordinate in 2 dimensions
 
 changes:
@@ -17,8 +17,8 @@ public attributes:
 """
 
 
-class Point2D:
-    __init__(self, x=0, y=0):
+class Point:
+    def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
 
