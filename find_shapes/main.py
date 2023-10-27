@@ -46,6 +46,19 @@ def test_circle():
     circle = Circle(Point(1, 2), 3)
     print(f'Circle: {circle} ({circle.getName()})')
 
+def test_shape():
+    print('=== Shape Test ===')
+    shapes = [Circle(Point(1, 2), 3),
+              Polygon([Point(1, 2), Point(3, 4), Point(5, 6)]),
+              Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10), Point(11, 12)]),
+              Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10)]),
+              Circle(Point(8, 9), 10.2),
+              Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10)]),
+              Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8)]),
+              Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10), Point(11, 12), Point(13, 14)])
+             ]
+    for i in range(len(shapes)):
+        print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
 
 def main():
     # testing point class
@@ -56,6 +69,9 @@ def main():
 
     # testing circle class
     test_circle()
+
+    # testing shapes together
+    test_shape()
 
     #testing camera class
     camera = Camera()
