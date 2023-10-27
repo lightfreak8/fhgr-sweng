@@ -8,8 +8,9 @@ changes:
 1.0     2023-10-27      created
 
 public functions:
-    __init__(self):   constructor, pass list of Point (s)
-    __str__(self):    string representation
+    __init__(self):     constructor, pass list of Point (s)
+    __str__(self):      string representation
+    getName(self):      print name of the polygon
 
 """
 
