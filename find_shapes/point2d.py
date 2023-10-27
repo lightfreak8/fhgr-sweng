@@ -1,5 +1,5 @@
 """
-point.py
+point2d.py
 
 class Point2D:
 containing x and y coordinate in 2 dimensions
