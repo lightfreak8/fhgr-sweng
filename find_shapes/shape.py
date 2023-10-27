@@ -12,9 +12,9 @@ public functions:
 
 """
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
-class Shape:
+class Shape(ABC):
     @abstractmethod
     def getName(self):
         pass

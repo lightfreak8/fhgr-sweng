@@ -7,7 +7,7 @@ added code for testing class camera.py
 # import class
 from camera import Camera
 from point import Point
-from polygon import Polygon
+from shape import Shape
 
 def test_point():
     point = Point(2, 4)
