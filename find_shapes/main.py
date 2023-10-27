@@ -7,13 +7,14 @@ added code for testing class camera.py
 # import class
 from camera import Camera
 from point import Point
+from polygon import Polygon
 
 def test_point():
     point = Point(2, 4)
-    print(f'Point = [{point.x}, {point.y}]')
+    print(point)
     point.x = 4.3
     point.y = 2.8
-    print(f'Point = [{point.x}, {point.y}]')
+    print(point)
 
 def main():
     # testing point class
