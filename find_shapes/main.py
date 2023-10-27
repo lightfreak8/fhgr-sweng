@@ -44,7 +44,7 @@ def test_circle():
     try: circle = Circle(1, 2)
     except Exception as ex: print(ex)
     circle = Circle(Point(1, 2), 3)
-    print(f'Circle: {circle}')
+    print(f'Circle: {circle} ({circle.getName()})')
 
 
 def main():
