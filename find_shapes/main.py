@@ -8,6 +8,8 @@ added code for testing class camera.py
 from camera import Camera
 from point import Point
 from shape import Shape
+from polygon import Polygon
+from circle import Circle
 
 def test_point():
     point = Point(2, 4)
@@ -16,9 +18,40 @@ def test_point():
     point.y = 2.8
     print(point)
 
+def test_polygon():
+    print("=== Polygon Test ===")
+    try: polygon = Polygon([1, 2])
+    except Exception as ex: print(ex)
+    try: polygon = Polygon([1, 2, 4])
+    except Exception as ex: print(ex)
+    poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6)])
+    print(f'Polygon Points: {poly} ({poly.getName()})')
+    poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8)])
+    print(f'Polygon Points: {poly} ({poly.getName()})')
+    poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10)])
+    print(f'Polygon Points: {poly} ({poly.getName()})')
+    poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10), Point(11, 12)])
+    print(f'Polygon Points: {poly} ({poly.getName()})')
+    poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10), Point(11, 12), Point(13, 14)])
+    print(f'Polygon Points: {poly} ({poly.getName()})')
+
+def test_circle():
+    print('=== Circle Test ===')
+    try: circle = Circle(1, 2)
+    except Exception as ex: print(ex)
+    circle = Circle(Point(1, 2), 3)
+    print(f'Circle: {circle} ({circle.getName()})')
+
+
 def main():
     # testing point class
     test_point()
+
+    # testing polygon class
+    test_polygon()
+
+    # testing circle class
+    test_circle()
 
     #testing camera class
     camera = Camera()
