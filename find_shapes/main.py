@@ -74,13 +74,13 @@ def main():
     test_shape()
 
     #testing camera class
-    camera = Camera()
-    img = camera.requestImage()
-    camera.showImage(img)
-    path = "../find-shapes/data/sample_image.jpg"
-    sample = camera.requestSample(path)
-    camera.showImage(sample)
-    camera.release()
+    # camera = Camera()
+    # img = camera.requestImage()
+    # camera.showImage(img)
+    # path = "../find-shapes/data/sample_image.jpg"
+    # sample = camera.requestSample(path)
+    # camera.showImage(sample)
+    # camera.release()
 
 
 if __name__ == "__main__":
