@@ -78,14 +78,14 @@ def main():
     camera = Camera()
     # img = camera.requestImage()
     # camera.showImage(img)
-    path = "../find-shapes/data/sample_image.jpg"
+    path = "data/sample_image.jpg"
     sample = camera.requestSample(path)
     camera.showImage(sample)
     
-    detect = ImageProcessor()
-    shapes = detect.detect(sample)
+    shapes = ImageProcessor(sample)
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
+        print(type(shapes[i]))
 
     camera.release()
 
