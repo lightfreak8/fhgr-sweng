@@ -64,29 +64,34 @@ def test_timestamp():
 
 def main():
     # testing point class
-    test_point()
+    #test_point()
 
     # testing polygon class
-    test_polygon()
+    #test_polygon()
 
     # testing circle class
-    test_circle()
+    #test_circle()
 
     # testing shapes together
-    test_shape()
+    #test_shape()
 
     # testing timestamp
     test_timestamp()
 
     #testing camera class
     camera = Camera()
-    img = camera.requestImage()
-    camera.showImage(img)
+    # img = camera.requestImage()
+    # camera.showImage(img)
     path = "../find-shapes/data/sample_image.jpg"
     sample = camera.requestSample(path)
     camera.showImage(sample)
-    camera.release()
+    
+    detect = PatternDetector()
+    shapes = detect.detect(sample)
+    for i in range(len(shapes)):
+        print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
 
+    camera.release()
 
 if __name__ == "__main__":
     main()
