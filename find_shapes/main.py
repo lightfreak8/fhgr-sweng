@@ -81,12 +81,13 @@ def main():
     # camera.showImage(img)
     path = "data/sample_image.jpg"
     sample = camera.requestSample(path)
-    #camera.showImage(sample)
-
-    detect = ImageProcessor()
-    shapes = detect.detect(sample)
+    
+    camera.showImage(sample)
+    shapes = ImageProcessor(sample)
+    
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
+        print(type(shapes[i]))
 
     display = Display("Detected Shapes")
     display.drawContours(sample, shapes)

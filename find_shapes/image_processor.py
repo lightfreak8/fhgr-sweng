@@ -30,10 +30,19 @@ from circle import Circle
 
 class ImageProcessor:
     #class constructor
-    def __init__(self):
-        pass
+    def __new__(self, frame = None):
+        shapes = DetectShape(frame)
+        return shapes
+    
+    def createTimestamp(self):
+        dt = datetime.now()
+        return dt
 
-    def detect(self, frame):
+class DetectShape:
+    def __new__(self, frame):
+        return self.detectShape(self, frame)
+    
+    def detectShape(self, frame):
         """
         Detect patterns (shapes) in a given image frame.
 
@@ -68,6 +77,7 @@ class ImageProcessor:
 
             if len(points) < 6:
                 pattern = Polygon(points)
+                pattern.color = DetectColor(pattern, frame)
                 patterns.append(pattern)
             else:
                 center = Point()
@@ -76,17 +86,80 @@ class ImageProcessor:
                     center.y += p.y
                 center.x /= len(points)
                 center.y /= len(points)
+                center.x = int(round(center.x))
+                center.y = int(round(center.y))
                 radius = 0
                 for p in points:
                     radius += np.sqrt((center.x - p.x)**2 + (center.y - p.y)**2)
                 radius /= len(points)
+                radius = int(round(radius))
                 pattern = Circle(center, radius)
+                pattern.color = DetectColor(pattern, frame)
                 patterns.append(pattern)
 
         return patterns
 
+class DetectColor:
+    def __new__(self, shape, frame):
+        return self.detectColor(self, shape, frame)
+    
+    def detectColor(self, shape, frame):
+        """
+        Detect color in shape
+
+        Args:
+            shape: ...
+
+        Returns:
+            color: string
+        """
+    
+        mask = np.zeros_like(frame)
+        if isinstance(shape, Polygon):
+            cv2.drawContours(
+                mask, [shape.getContour()], -1, (255, 255, 255), thickness=cv2.FILLED)
+        elif isinstance(shape, Circle):
+            cv2.circle(mask, [shape.origin.x, shape.origin.y], shape.radius,-1, (255, 255, 255), thickness=cv2.FILLED )
+
+        masked_image = cv2.bitwise_and(frame, mask)
+        # Convert the masked image to HSV color space
+        hsv_image = cv2.cvtColor(masked_image, cv2.COLOR_BGR2HSV)
+
+        # Get the hue channel from the HSV image
+        hue_channel = hsv_image[:, :, 0]
+
+        # Calculate the mean hue of non-zero values
+        non_zero_hues = hue_channel[hue_channel != 0]
+        median_hue = np.median(non_zero_hues)
+
+        shape.color = self._hue_to_color(median_hue)
+        
 
 
-    def createTimestamp(self):
-        dt = datetime.now()
-        return dt
+    def _hue_to_color(self, hue):
+        """
+        Convert a hue value to a color name.
+
+        Args:
+            hue (float): The hue value to be converted.
+
+        Returns:
+            str: The color name corresponding to the hue value.
+        """
+        color = ""
+        if hue < 10:
+            color = "RED"
+        elif hue < 22:
+            color = "ORANGE"
+        elif hue < 33:
+            color = "YELLOW"
+        elif hue < 78:
+            color = "GREEN"
+        elif hue < 131:
+            color = "BLUE"
+        elif hue < 150:
+            color = "VIOLET"
+        else:
+            color = "RED"
+        return color
+
