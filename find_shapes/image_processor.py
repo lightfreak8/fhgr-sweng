@@ -2,19 +2,25 @@
 image_processor.py
 
 class ImageProcessor:
-
+process images
 
 changes:
-1.0     2023-10-29      created
+1.0     2023-10-28      created
+1.1     2023-10-29      added detect
 
 
 public functions:
-    __init()__(self):   constructor, if not successfull set to None
+    __init__(self):     constructor, if not successfull set to None
+    createTimestamp(self):  return timestamp
+    detect(self, image): detect 
 
 
 """
+
 import cv2
 import numpy as np
+
+from datetime import datetime
 
 from camera import Camera
 from point import Point
@@ -89,3 +95,10 @@ class ImageProcessor:
 
         return patterns
 
+
+    def __init__(self):
+        pass
+
+    def createTimestamp(self):
+        dt = datetime.now()
+        return dt

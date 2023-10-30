@@ -10,7 +10,7 @@ from point import Point
 from shape import Shape
 from polygon import Polygon
 from circle import Circle
-from image_processor import ImageProcessor, ColorDetector, PatternDetector
+from image_processor import ImageProcessor
 
 def test_point():
     point = Point(2, 4)
@@ -21,14 +21,10 @@ def test_point():
 
 def test_polygon():
     print("=== Polygon Test ===")
-    try:
-        polygon = Polygon([1, 2])
-    except Exception as ex:
-        print(ex)
-    try:
-        polygon = Polygon([1, 2, 4])
-    except Exception as ex:
-        print(ex)
+    try: polygon = Polygon([1, 2])
+    except Exception as ex: print(ex)
+    try: polygon = Polygon([1, 2, 4])
+    except Exception as ex: print(ex)
     poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6)])
     print(f'Polygon Points: {poly} ({poly.getName()})')
     poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8)])
@@ -61,18 +57,26 @@ def test_shape():
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
 
+
+def test_timestamp():
+    ip = ImageProcessor()
+    print(f'Timestamp: {ip.createTimestamp()}')
+
 def main():
     # testing point class
     #test_point()
 
     # testing polygon class
-   # test_polygon()
+    #test_polygon()
 
     # testing circle class
     #test_circle()
 
     # testing shapes together
-   # test_shape()
+    #test_shape()
+
+    # testing timestamp
+    test_timestamp()
 
     #testing camera class
     camera = Camera()
