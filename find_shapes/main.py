@@ -10,6 +10,7 @@ from point import Point
 from shape import Shape
 from polygon import Polygon
 from circle import Circle
+from image_processor import ImageProcessor, ColorDetector, PatternDetector
 
 def test_point():
     point = Point(2, 4)
@@ -62,26 +63,31 @@ def test_shape():
 
 def main():
     # testing point class
-    test_point()
+    #test_point()
 
     # testing polygon class
-    test_polygon()
+   # test_polygon()
 
     # testing circle class
-    test_circle()
+    #test_circle()
 
     # testing shapes together
-    test_shape()
+   # test_shape()
 
     #testing camera class
-    # camera = Camera()
+    camera = Camera()
     # img = camera.requestImage()
     # camera.showImage(img)
-    # path = "../find-shapes/data/sample_image.jpg"
-    # sample = camera.requestSample(path)
-    # camera.showImage(sample)
-    # camera.release()
+    path = "../find-shapes/data/sample_image.jpg"
+    sample = camera.requestSample(path)
+    camera.showImage(sample)
+    
+    detect = PatternDetector()
+    shapes = detect.detect(sample)
+    for i in range(len(shapes)):
+        print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
 
+    camera.release()
 
 if __name__ == "__main__":
     main()
