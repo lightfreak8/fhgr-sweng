@@ -26,6 +26,7 @@ class Circle(Shape):
             raise Exception(f'Wrong type for radius ({type(radius)})')
         self.origin = origin
         self.radius = radius
+        self.color = ""
 
     def __str__(self):
         s = f'[{self.origin}, {self.radius}]'
