@@ -26,7 +26,7 @@ class Display:
             else:
                 raise Exception(f'Unknown shape encountered ({type(shape)})')
 
-            cv2.putText(frame, shape.color + " " + shape.getName(), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (120, 120, 255), 2)
+            cv2.putText(frame, shape.getColor() + " " + shape.getName(), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (120, 120, 255), 2)
         cv2.imshow(self.name, frame)
         cv2.waitKey(0)
         cv2.destroyAllWindows()

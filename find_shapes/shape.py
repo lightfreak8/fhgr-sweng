@@ -18,4 +18,9 @@ class Shape(ABC):
     @abstractmethod
     def getName(self):
         pass
+    def getColor(self):
+        if self.color is None:
+            return ""
+        else:
+            return self.color
 

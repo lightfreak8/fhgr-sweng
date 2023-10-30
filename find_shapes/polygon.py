@@ -50,7 +50,7 @@ class Polygon(Shape):
         elif len(self.points) == 6:
             return 'Hexagon'
         else:
-            return None
+            return ""
             #raise Exception(f'Unknown polygon name containing {len(self.points))} points')
 
     def getContour(self):

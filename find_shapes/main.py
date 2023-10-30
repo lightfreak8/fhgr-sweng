@@ -77,13 +77,15 @@ def main():
 
     #testing camera class
     camera = Camera()
-    # img = camera.requestImage()
-    # camera.showImage(img)
-    path = "data/sample_image.jpg"
-    sample = camera.requestSample(path)
-    
-    camera.showImage(sample)
-    shapes = ImageProcessor(sample)
+    img = camera.requestImage()
+    camera.showImage(img)
+    #path = "data/sample_image.jpg"
+    #sample = camera.requestSample(path)
+    sample = img
+
+    #camera.showImage(sample)
+    all = ImageProcessor(sample)
+    shapes, ts = all
     
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')

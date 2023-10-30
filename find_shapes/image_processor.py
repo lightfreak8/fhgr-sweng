@@ -32,7 +32,8 @@ class ImageProcessor:
     #class constructor
     def __new__(self, frame = None):
         shapes = DetectShape(frame)
-        return shapes
+        timestamp = self.createTimestamp(self)
+        return (shapes, timestamp)
     
     def createTimestamp(self):
         dt = datetime.now()
@@ -56,10 +57,10 @@ class DetectShape:
         img = frame.copy()
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         # Perform dilation
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        blurred = cv2.GaussianBlur(gray, (3, 3), 0)
         edges = cv2.Canny(blurred, 40, 180)
         # Perform dilation
-        kernel = np.ones((5, 5), np.uint8)
+        kernel = np.ones((3, 3), np.uint8)
         dilated_image = cv2.dilate(edges, kernel, iterations=2)
         # detect contours
         contours, _ = cv2.findContours(
@@ -75,11 +76,7 @@ class DetectShape:
             for p in approx:
                 points.append(Point(p[0,0], p[0,1]))
 
-            if len(points) < 6:
-                pattern = Polygon(points)
-                pattern.color = DetectColor(pattern, frame)
-                patterns.append(pattern)
-            else:
+            if len(points) > 5:
                 center = Point()
                 for p in points:
                     center.x += p.x
@@ -94,6 +91,10 @@ class DetectShape:
                 radius /= len(points)
                 radius = int(round(radius))
                 pattern = Circle(center, radius)
+                pattern.color = DetectColor(pattern, frame)
+                patterns.append(pattern)
+            elif len(points) > 2:
+                pattern = Polygon(points)
                 pattern.color = DetectColor(pattern, frame)
                 patterns.append(pattern)
 
@@ -119,7 +120,7 @@ class DetectColor:
             cv2.drawContours(
                 mask, [shape.getContour()], -1, (255, 255, 255), thickness=cv2.FILLED)
         elif isinstance(shape, Circle):
-            cv2.circle(mask, [shape.origin.x, shape.origin.y], shape.radius,-1, (255, 255, 255), thickness=cv2.FILLED )
+            cv2.circle(mask, [shape.origin.x, shape.origin.y], shape.radius, (255, 255, 255), thickness=cv2.FILLED )
 
         masked_image = cv2.bitwise_and(frame, mask)
         # Convert the masked image to HSV color space
@@ -132,7 +133,7 @@ class DetectColor:
         non_zero_hues = hue_channel[hue_channel != 0]
         median_hue = np.median(non_zero_hues)
 
-        shape.color = self._hue_to_color(median_hue)
+        return self._hue_to_color(self, median_hue)
         
 
 
