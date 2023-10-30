@@ -86,8 +86,6 @@ class ImageProcessor:
         return patterns
 
 
-    def __init__(self):
-        pass
 
     def createTimestamp(self):
         dt = datetime.now()
