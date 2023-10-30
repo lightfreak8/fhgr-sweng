@@ -11,6 +11,7 @@ from shape import Shape
 from polygon import Polygon
 from circle import Circle
 from image_processor import ImageProcessor
+from display import Display
 
 def test_point():
     point = Point(2, 4)
@@ -66,26 +67,29 @@ def main():
     #test_point()
 
     # testing polygon class
-   # test_polygon()
+    #test_polygon()
 
     # testing circle class
     #test_circle()
 
     # testing shapes together
-   # test_shape()
+    #test_shape()
 
     #testing camera class
     camera = Camera()
     # img = camera.requestImage()
     # camera.showImage(img)
-    path = "../find-shapes/data/sample_image.jpg"
+    path = "data/sample_image.jpg"
     sample = camera.requestSample(path)
-    camera.showImage(sample)
-    
+    #camera.showImage(sample)
+
     detect = ImageProcessor()
     shapes = detect.detect(sample)
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
+
+    display = Display("Detected Shapes")
+    display.drawContours(sample, shapes)
 
     camera.release()
 

@@ -17,6 +17,8 @@ public functions:
 from point import Point
 from shape import Shape
 
+import numpy as np
+
 class Polygon(Shape):
     def __init__(self, points: list):
         if len(points) < 3:
@@ -25,6 +27,7 @@ class Polygon(Shape):
             if not isinstance(point, Point):
                 raise Exception(f'Each member has to be Point class (encountered {type(point)})')
         self.points = points
+        self.color = ""
 
     def __str__(self):
         s = '['
@@ -49,4 +52,11 @@ class Polygon(Shape):
         else:
             return None
             #raise Exception(f'Unknown polygon name containing {len(self.points))} points')
+
+    def getContour(self):
+        flat = []
+        for p in self.points:
+            flat.append([p.x, p.y])
+        result = np.array(flat)
+        return result
 

@@ -12,7 +12,7 @@ changes:
 public functions:
     __init__(self):     constructor, if not successfull set to None
     createTimestamp(self):  return timestamp
-    detect(self, image): detect 
+    detect(self, image): detect
 
 
 """
@@ -32,7 +32,7 @@ class ImageProcessor:
     #class constructor
     def __init__(self):
         pass
-            
+
     def detect(self, frame):
         """
         Detect patterns (shapes) in a given image frame.
