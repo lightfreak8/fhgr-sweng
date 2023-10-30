@@ -21,10 +21,14 @@ def test_point():
 
 def test_polygon():
     print("=== Polygon Test ===")
-    try: polygon = Polygon([1, 2])
-    except Exception as ex: print(ex)
-    try: polygon = Polygon([1, 2, 4])
-    except Exception as ex: print(ex)
+    try:
+        polygon = Polygon([1, 2])
+    except Exception as ex:
+        print(ex)
+    try:
+        polygon = Polygon([1, 2, 4])
+    except Exception as ex:
+        print(ex)
     poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6)])
     print(f'Polygon Points: {poly} ({poly.getName()})')
     poly = Polygon([Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8)])
@@ -57,26 +61,18 @@ def test_shape():
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
 
-
-def test_timestamp():
-    ip = ImageProcessor()
-    print(f'Timestamp: {ip.createTimestamp()}')
-
 def main():
     # testing point class
     #test_point()
 
     # testing polygon class
-    #test_polygon()
+   # test_polygon()
 
     # testing circle class
     #test_circle()
 
     # testing shapes together
-    #test_shape()
-
-    # testing timestamp
-    test_timestamp()
+   # test_shape()
 
     #testing camera class
     camera = Camera()
@@ -86,7 +82,7 @@ def main():
     sample = camera.requestSample(path)
     camera.showImage(sample)
     
-    detect = PatternDetector()
+    detect = ImageProcessor()
     shapes = detect.detect(sample)
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')

@@ -31,17 +31,7 @@ from circle import Circle
 class ImageProcessor:
     #class constructor
     def __init__(self):
-            """
-            Initialize an ImageProcessor object.
-
-            This class is responsible for processing image frames using a list of detectors.
-
-            """
-            self._detectors = [
-                PatternDetector(),  # PatternDetector must come first, else no patterns for color detector
-                ColorDetector(),
-            ]
-            self._pattern_color_list = []
+        pass
             
     def detect(self, frame):
         """
@@ -96,8 +86,6 @@ class ImageProcessor:
         return patterns
 
 
-    def __init__(self):
-        pass
 
     def createTimestamp(self):
         dt = datetime.now()
