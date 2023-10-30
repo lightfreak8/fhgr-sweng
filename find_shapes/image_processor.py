@@ -12,7 +12,7 @@ changes:
 public functions:
     __init__(self):     constructor, if not successfull set to None
     createTimestamp(self):  return timestamp
-    detect(self, image): detect 
+    detect(self, image): detect
 
 
 """
