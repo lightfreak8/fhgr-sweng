@@ -1,3 +1,17 @@
+"""
+display.py
+
+class Display:
+show images on the display
+
+changes:
+1.0     2023-10-27      created
+1.1     2023-11-02      drawContours: clone the frame and then do stuff with it
+
+
+"""
+
+
 from polygon import Polygon
 from circle import Circle
 

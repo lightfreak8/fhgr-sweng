@@ -7,6 +7,7 @@ for opening webcam, capturing image or loading sample by path and release camera
 changes:
 1.0     2023-10-21      created
 1.0.1   2023-10-21      public functions description added
+1.1     2023-11-02      __init__: allow passing index
 
 public functions:
     __init()__(self):   constructor, if not successfull set to None

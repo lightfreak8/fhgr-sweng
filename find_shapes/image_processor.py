@@ -7,6 +7,7 @@ process images
 changes:
 1.0     2023-10-28      created
 1.1     2023-10-29      added detect
+1.2     2023-11-02      add 2 types of filtering: intersecting and points that are too close to other lines
 
 
 public functions:
