@@ -62,6 +62,14 @@ def test_shape():
     for i in range(len(shapes)):
         print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
 
+def test_cam():
+    camera = Camera()
+    img = camera.requestImage()
+    camera.showImage(img)
+    path = "data/sample_image.jpg"
+    sample = camera.requestSample(path)
+    camera.showImage(sample)
+
 def main():
     # testing point class
     #test_point()
@@ -75,24 +83,15 @@ def main():
     # testing shapes together
     #test_shape()
 
-    #testing camera class
+    # testing camera class
+    #test_cam()
+
     camera = Camera()
-    img = camera.requestImage()
-    camera.showImage(img)
-    #path = "data/sample_image.jpg"
-    #sample = camera.requestSample(path)
-    sample = img
-
-    #camera.showImage(sample)
-    all = ImageProcessor(sample)
-    shapes, ts = all
-    
-    for i in range(len(shapes)):
-        print(f'[{i}] : {shapes[i].getName()} -> {shapes[i]}')
-        print(type(shapes[i]))
-
-    display = Display("Detected Shapes")
-    display.drawContours(sample, shapes)
+    display = Display("Detected Shapes", ms_wait=30)
+    while display.alive:
+        img = camera.requestImage()
+        shapes, ts = ImageProcessor(img)
+        display.drawContours(img, shapes)
 
     camera.release()
 

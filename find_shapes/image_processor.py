@@ -7,6 +7,7 @@ process images
 changes:
 1.0     2023-10-28      created
 1.1     2023-10-29      added detect
+1.2     2023-11-02      add 2 types of filtering: intersecting and points that are too close to other lines
 
 
 public functions:
@@ -34,7 +35,7 @@ class ImageProcessor:
         shapes = DetectShape(frame)
         timestamp = self.createTimestamp(self)
         return (shapes, timestamp)
-    
+
     def createTimestamp(self):
         dt = datetime.now()
         return dt
@@ -42,8 +43,8 @@ class ImageProcessor:
 class DetectShape:
     def __new__(self, frame):
         return self.detectShape(self, frame)
-    
-    def detectShape(self, frame):
+
+    def detectShape(self, frame, mindist=7, allow_intersect=False):
         """
         Detect patterns (shapes) in a given image frame.
 
@@ -76,6 +77,49 @@ class DetectShape:
             for p in approx:
                 points.append(Point(p[0,0], p[0,1]))
 
+            # filter out garbage - mindist
+            #print(15*'=')
+            garbage = False
+            for i1 in range(len(points)):
+                p1 = points[i1]
+                for i2 in range(len(points)+1):
+                    i21 = (i2+0) % len(points)
+                    i22 = (i2+1) % len(points)
+                    if i21 == i1 or i22 == i1: continue
+                    p21 = points[i21]
+                    p22 = points[i22]
+                    dist = p1.dist(p21, p22)
+                    #print(f'[{i1}] -> [{i21}, {i22}] : {dist}')
+                    if dist < mindist:
+                        #print('(garbage)')
+                        garbage = True
+                    if garbage: break
+                if garbage: break
+
+            # filter out garbage - intersection
+            if not allow_intersect:
+                for i1 in range(len(points)- 1):
+                    i11 = i1+0
+                    i12 = i1+1
+                    p11 = points[i11]
+                    p12 = points[i12]
+                    for i2 in range(len(points)+1):
+                        i21 = (i2+0) % len(points)
+                        i22 = (i2+1) % len(points)
+                        if i11 == i21 or i11 == i22 or i12 == i21 or i12 == i22: continue
+                        p21 = points[i21]
+                        p22 = points[i22]
+                        #print(f'[{i1}, {i1+1}] x [{i2}, {i2+1}]')
+                        if p11.is_intersect(p12, p21, p22):
+                            garbage = True
+                        if garbage: break
+                    if garbage: break
+
+            # ignore current if we want to filter out garbage
+            if garbage:
+                continue
+
+            # valid points here
             if len(points) > 5:
                 center = Point()
                 for p in points:
@@ -103,7 +147,7 @@ class DetectShape:
 class DetectColor:
     def __new__(self, shape, frame):
         return self.detectColor(self, shape, frame)
-    
+
     def detectColor(self, shape, frame):
         """
         Detect color in shape
@@ -114,7 +158,7 @@ class DetectColor:
         Returns:
             color: string
         """
-    
+
         mask = np.zeros_like(frame)
         if isinstance(shape, Polygon):
             cv2.drawContours(
@@ -134,7 +178,7 @@ class DetectColor:
         median_hue = np.median(non_zero_hues)
 
         return self._hue_to_color(self, median_hue)
-        
+
 
 
     def _hue_to_color(self, hue):
