@@ -24,12 +24,12 @@ import cv2
 class Camera:
     #class contructor
     #open webcam and check if successfull
-    def __init__(self):
-        self.cap = cv2.VideoCapture(0)
+    def __init__(self, index=0):
+        self.cap = cv2.VideoCapture(index)
         if not self.cap.isOpened():
             print("Failed to open the webcam.")
             self.cap = None
-    
+
     def requestImage(self):
         if self.cap is None:
             return None
@@ -38,7 +38,7 @@ class Camera:
             print("Failed to capture an image from the webcam.")
             return None
         return frame     #returns cv2.Mat or None
-    
+
 
     def requestSample(self,path):
         sample = cv2.imread(path)
@@ -46,14 +46,14 @@ class Camera:
             print(f"Failed to load image from path: {path}")
             return None
         return sample #returns cv2.Mat or None
-    
+
     def showImage(self, img):
         if img is None:
             print("invalid argument")
         cv2.imshow("Captured Image", img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-    
+
     #release cam
     def release(self):
         if self.cap is not None:
