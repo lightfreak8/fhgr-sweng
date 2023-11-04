@@ -23,9 +23,9 @@ class Logger(ABC):
         self.append_existing = False
         self.output_terminal = output_terminal
         self.head = head
-        if file:
+        if self.file:
             if not append_existing:
-                with open(file, 'w') as file:
+                with open(self.file, 'w') as file:
                     if head:
                         file.write(head)
 
@@ -33,7 +33,6 @@ class Logger(ABC):
         if self.output_terminal:
             print(text)
         if self.file:
-            size = os.stat(self.file).st_size
             with open(self.file, 'a') as file:
                 file.write(text+end)
 
