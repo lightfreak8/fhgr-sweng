@@ -16,9 +16,9 @@ import cv2
 class Camera:
     """
     public functions:
-    __init()__(self, index):   constructor, if not successfull set to None
-    requestImage(self):     return cv2.Mat or None
-    requestSample(self, path):    return cv2.Mat or None
+    __init()__(self, index):        constructor, if not successfull set to None
+    requestImage(self):             return cv2.Mat or None
+    requestSample(self, path):      return cv2.Mat or None
     showImage(self, img)
     release(self)
 

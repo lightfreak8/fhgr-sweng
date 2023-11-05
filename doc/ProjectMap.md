@@ -103,7 +103,7 @@ deactivate Processor
  classDiagram
 
       class Camera{
-        +init()
+        +init(int index)
         +requestImage(): cv2:Mat || None
         +requestSample(string path): cv2:Mat || None
         +showImage(cv2.Mat img)
@@ -112,15 +112,13 @@ deactivate Processor
 
       ImageProcessor <|-- DetectShape
       class ImageProcessor{
-          +processImage(): Shape Array
+          +processImage(cv2.Mat frame): Shape Array
           -createTimestamp()
       }
 
       DetectShape <|-- DetectColor
       class DetectShape{
-        +detectShapes(): Shape Array
-        -detectCircles(): Circle Array
-        -detectPolygons(): Polygon Array
+        +detectShapes(): list
       }
 
       Shape <|-- Circle
@@ -146,7 +144,9 @@ deactivate Processor
       }
 
       class DetectColor{
-          -detectColor(): string
+
+          +detectColor(): string
+          -hue_to_color(float): string
       }
 
       class Display{

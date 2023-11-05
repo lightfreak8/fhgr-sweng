@@ -32,7 +32,7 @@ class ImageProcessor:
     """
     public functions:
     __new__(self, frame):       constructor, if not successfull set to None
-    createTimestamp(self):      return timestamp
+    __createTimestamp(self):      return timestamp
     """
     def __new__(self, frame = None):
         """
@@ -40,14 +40,14 @@ class ImageProcessor:
         Args:
             frame, the input image frame.
         Returns:
-            shapes, list of patterns
+            shapes, list of patterns and colors
             timestamp, string
         """
         shapes = DetectShape(frame)
-        timestamp = self.createTimestamp(self)
+        timestamp = self.__createTimestamp(self)
         return (shapes, timestamp)
 
-    def createTimestamp(self):
+    def __createTimestamp(self):
         dt = datetime.now()
         return dt
 
@@ -55,7 +55,7 @@ class DetectShape:
     """
     public functions:
     __new__(self, frame):       constructor, if not successfull set to None
-    detect(self, image, mindist, allow_intersect)
+    detectShape(self, image, mindist, allow_intersect)
     """
 
     def __new__(self, frame=None):
@@ -166,6 +166,13 @@ class DetectShape:
         return patterns
 
 class DetectColor:
+    """
+    public functions:
+    __new__(self, shape, frame):       constructor, if not successfull set to None
+    detectColor(self, shape, frame)
+    __hue_to_color(self, hue)
+    """
+
     def __new__(self, shape, frame):
         """
         constructor
@@ -206,12 +213,11 @@ class DetectColor:
         # Calculate the mean hue of non-zero values
         non_zero_hues = hue_channel[hue_channel != 0]
         median_hue = np.median(non_zero_hues)
-
-        return self._hue_to_color(self, median_hue)
-
+        return self.__hue_to_color(self, median_hue)
 
 
-    def _hue_to_color(self, hue):
+
+    def __hue_to_color(self, hue):
         """
         Convert a hue value to a color name.
 
