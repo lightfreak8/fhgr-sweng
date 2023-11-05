@@ -2,19 +2,19 @@
 image_processor.py
 
 class ImageProcessor:
-process images
+Process images and create timestamp.
+
+class DetectShape:
+Detect patterns circle and different kind of polygons.
+
+class DetectColor:
+Detect median color in pattern.
 
 changes:
 1.0     2023-10-28      created
 1.1     2023-10-29      added detect
 1.2     2023-11-02      add 2 types of filtering: intersecting and points that are too close to other lines
-
-
-public functions:
-    __init__(self):     constructor, if not successfull set to None
-    createTimestamp(self):  return timestamp
-    detect(self, image): detect
-
+1.2.1   2023-11-05      add comments / descriptions
 
 """
 
@@ -22,7 +22,6 @@ import cv2
 import numpy as np
 
 from datetime import datetime
-
 from camera import Camera
 from point import Point
 from shape import Shape
@@ -30,18 +29,42 @@ from polygon import Polygon
 from circle import Circle
 
 class ImageProcessor:
-    #class constructor
+    """
+    public functions:
+    __new__(self, frame):       constructor, if not successfull set to None
+    __createTimestamp(self):      return timestamp
+    """
     def __new__(self, frame = None):
+        """
+        constructor, creating and returning a new instance
+        Args:
+            frame, the input image frame.
+        Returns:
+            shapes, list of patterns and colors
+            timestamp, string
+        """
         shapes = DetectShape(frame)
-        timestamp = self.createTimestamp(self)
+        timestamp = self.__createTimestamp(self)
         return (shapes, timestamp)
 
-    def createTimestamp(self):
+    def __createTimestamp(self):
         dt = datetime.now()
         return dt
 
 class DetectShape:
-    def __new__(self, frame):
+    """
+    public functions:
+    __new__(self, frame):       constructor, if not successfull set to None
+    detectShape(self, image, mindist, allow_intersect)
+    """
+
+    def __new__(self, frame=None):
+        """
+        constructor
+        Args:
+            frame, the input image frame.
+        Return
+        """
         return self.detectShape(self, frame)
 
     def detectShape(self, frame, mindist=7, allow_intersect=False):
@@ -49,9 +72,7 @@ class DetectShape:
         Detect patterns (shapes) in a given image frame.
 
         Args:
-            patterns (list): A list to store detected Pattern objects.
-            frame (numpy.ndarray): The input image frame.
-
+            frame, the input image frame.
         Returns:
             list: A list of Pattern objects representing the detected patterns.
         """
@@ -145,18 +166,34 @@ class DetectShape:
         return patterns
 
 class DetectColor:
+    """
+    public functions:
+    __new__(self, shape, frame):       constructor, if not successfull set to None
+    detectColor(self, shape, frame)
+    __hue_to_color(self, hue)
+    """
+
     def __new__(self, shape, frame):
+        """
+        constructor
+        Args:
+            frame, the input image frame.
+            shape (string), pattern
+        Returns:
+            color (string), median of colors in pattern
+        
+        """
         return self.detectColor(self, shape, frame)
 
     def detectColor(self, shape, frame):
         """
         Detect color in shape
-
         Args:
-            shape: ...
+            shape (string), pattern
+            frame, the input image frame.
 
         Returns:
-            color: string
+            color (string), median of colors in pattern
         """
 
         mask = np.zeros_like(frame)
@@ -176,12 +213,11 @@ class DetectColor:
         # Calculate the mean hue of non-zero values
         non_zero_hues = hue_channel[hue_channel != 0]
         median_hue = np.median(non_zero_hues)
-
-        return self._hue_to_color(self, median_hue)
-
+        return self.__hue_to_color(self, median_hue)
 
 
-    def _hue_to_color(self, hue):
+
+    def __hue_to_color(self, hue):
         """
         Convert a hue value to a color name.
 
