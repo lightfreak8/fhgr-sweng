@@ -6,6 +6,7 @@ class Logger:
 
 changes:
 1.0     2023-11-04      created
+1.0.1   2023-11-05      fix: function descriptions
 
 public functions:
     __init__(self)      create a logger
@@ -19,6 +20,14 @@ import os
 class Logger(ABC):
     @abstractmethod
     def __init__(self, file='log.csv', append_existing=False, output_terminal=True, head=''):
+        """
+        Constructor for the Logger class
+        Args:
+            file, output file name; None to disable
+            append_existing, True to append to existing file, False to start over
+            output_terminal, True enables and False disable the terminal output
+            head, gets written to the file when opening for the first time
+        """
         self.file = file
         self.append_existing = False
         self.output_terminal = output_terminal
@@ -30,6 +39,12 @@ class Logger(ABC):
                         file.write(head)
 
     def info(self, text, end='\n'):
+        """
+        Handle info level logging
+        Args:
+            text, what to log
+            end, get appended at the end of text
+        """
         if self.output_terminal:
             print(text)
         if self.file:
@@ -51,18 +66,32 @@ public functions:
 
 
 class ShapeLogger(Logger):
-    def __init__(self, file='shapes.csv', append_existing=False, output_terminal=True, keep_radius=100):
+    def __init__(self, file='shapes.csv', append_existing=False, output_terminal=True):
+        """
+        Constructor for the ShapeLogger class
+        Args:
+            file, output file name; None to disable
+            append_existing, True to append to existing file, False to start over
+            output_terminal, True enables and False disable the terminal output
+        """
         super().__init__(file, append_existing, output_terminal, head='timestamp, shape_kind, shape_color\n')
         self.shapes = []
-        self.keep_radius = keep_radius
 
-    def log_shapes(self, shapes, timestamp):
+    def log_shapes(self, shapes, timestamp, keep_radius=100):
+        """
+        Log various shapes
+        Args:
+            shapes, various shapes
+            timestamp, well, the timestamp
+            keep_radius, compares previously passed shapes with newly passed ones and the ones within that
+                radius are not logged since they are assumed to have existed already
+        """
         for shape in shapes:
             dist = False
             name = False
             color = False
             for existing in self.shapes:
-                dist = ((existing.getCenter() - shape.getCenter()).dist() < self.keep_radius)
+                dist = ((existing.getCenter() - shape.getCenter()).dist() < keep_radius)
                 name = (existing.getName() == shape.getName())
                 color = (existing.getColor() == shape.getColor())
                 if dist and name and color:
