@@ -6,7 +6,9 @@ authors = ["raphael <GitRaphael>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.13"
+opencv-python = "^4.8.1.78"
+numpy = "^1.26.1"
 
 
 [build-system]
