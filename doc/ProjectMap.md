@@ -103,7 +103,6 @@ deactivate Processor
  classDiagram
 
       class Camera{
-        +init(int index)
         +requestImage(): cv2:Mat || None
         +requestSample(string path): cv2:Mat || None
         +showImage(cv2.Mat img)
