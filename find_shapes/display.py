@@ -7,7 +7,7 @@ show images on the display
 changes:
 1.0     2023-10-27      created
 1.1     2023-11-02      drawContours: clone the frame and then do stuff with it
-1.1.1   2023-11-05      fix: function descriptions
+1.1.1   2023-11-05      fix: function descriptions; remove self.frame
 
 """
 
@@ -28,7 +28,6 @@ class Display:
             ms_wait, wait time for cv2.waitKey(); 0 to require key press to continue
         """
         self.name = name
-        self.frame = None
         self.ms_wait = ms_wait
         self.alive = True
 
