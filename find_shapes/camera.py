@@ -8,30 +8,46 @@ changes:
 1.0     2023-10-21      created
 1.0.1   2023-10-21      public functions description added
 1.1     2023-11-02      __init__: allow passing index
-
-public functions:
-    __init()__(self):   constructor, if not successfull set to None
-    requestImage():     return cv2.Mat or None
-    requestSample(string path):    return cv2.Mat or None
-    showImage(cv2.Mat img)
-    release()
-
-
-
+1.1.1   2023-11-05      add comments / descriptions
 
 """
 import cv2
 
 class Camera:
+    """
+    public functions:
+    __init()__(self, index):   constructor, if not successfull set to None
+    requestImage(self):     return cv2.Mat or None
+    requestSample(self, path):    return cv2.Mat or None
+    showImage(self, img)
+    release(self)
+
+    """
+
     #class contructor
     #open webcam and check if successfull
     def __init__(self, index=0):
+        """
+        constructor
+        Args:
+            index (int), camera index.
+
+        """
         self.cap = cv2.VideoCapture(index)
         if not self.cap.isOpened():
             print("Failed to open the webcam.")
             self.cap = None
 
     def requestImage(self):
+        """
+        Retrieves an image from the camera
+        if not successfull returns None.
+        Args:
+            -
+        Returns:
+            frame, from the camera.
+        
+        """
         if self.cap is None:
             return None
         ret, frame = self.cap.read()
@@ -42,6 +58,15 @@ class Camera:
 
 
     def requestSample(self,path):
+        """
+        Retrieves an image according to the path.
+        if not successfull returns None.
+        Args:
+            path (string), where the sample is located.
+        Returns:
+            frame, according to path.
+        
+        """
         sample = cv2.imread(path)
         if sample is None:
             print(f"Failed to load image from path: {path}")
@@ -49,6 +74,12 @@ class Camera:
         return sample #returns cv2.Mat or None
 
     def showImage(self, img):
+        """
+        Shows an image.
+        Args:
+            frame to be displayed.
+        
+        """
         if img is None:
             print("invalid argument")
         cv2.imshow("Captured Image", img)
@@ -57,6 +88,10 @@ class Camera:
 
     #release cam
     def release(self):
+        """
+        Closes capturing device.
+        
+        """
         if self.cap is not None:
             self.cap.release()
             self.cap = None
