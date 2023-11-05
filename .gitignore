@@ -1,2 +1,6 @@
 .obsidian/
 */__pycache__/*
+*.sqp
+shapes.csv
+*.vim
+

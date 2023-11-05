@@ -7,7 +7,7 @@ show images on the display
 changes:
 1.0     2023-10-27      created
 1.1     2023-11-02      drawContours: clone the frame and then do stuff with it
-
+1.1.1   2023-11-05      fix: function descriptions; remove self.frame
 
 """
 
@@ -21,15 +21,29 @@ KEY_ESC = 27
 
 class Display:
     def __init__(self, name, ms_wait=30):
+        """
+        Constructor for the Display class
+        Args:
+            name, for the window
+            ms_wait, wait time for cv2.waitKey(); 0 to require key press to continue
+        """
         self.name = name
-        self.frame = None
         self.ms_wait = ms_wait
         self.alive = True
 
     def __del__(self):
+        """
+        Destructor for the Display class
+        """
         cv2.destroyAllWindows()
 
     def drawContours(self, frame, shapes):
+        """
+        Draw the contours from various shapes onto a frame
+        Args:
+            frame, the input image frame
+            shapes, the input shapes
+        """
         this_frame = frame.copy()
         contour_color = (0, 255, 0)
         for shape in shapes:

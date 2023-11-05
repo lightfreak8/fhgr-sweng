@@ -124,38 +124,56 @@ deactivate Processor
       Shape <|-- Polygon
 
       class Points{
-        +float x
-        +float y
+        dist(): float
+	    asarray(): np.array
+	    is_intersect(): bool
+        +x: float || int
+        +y: float || int
       }
       class Shape{
         <<abstract>>
         +getName(): string
         +color: string
-
       }
       class Circle{
-        +radius:float
-        +centerpos:Point
-
+        +getCenter(): string
+        +getName(): string
+        +fradius: float
+        +origin: Point
       }
       class Polygon{
+        +getCenter(): string
+        +getName(): string
+        +getContour(): np.array
         +points: Point Array
       }
 
       class DetectColor{
-
           +detectColor(): string
           -hue_to_color(float): string
       }
 
       class Display{
-          +displayImage():void
-          +drawContours():void
+          +drawContours()
+          +name: string
+          +ms_wait: int
+          +alive: bool
       }
 
       class Logger{
-          +createCSV(): void
-          +writeCSV(): void
+          <<abstract>>
+		  +info(string)
+		  +file: string
+		  +append_existing: bool
+		  +output_terminal: bool
+		  +head: string
+      }
+
+	  Logger <|-- ShapeLogger
+
+      class ShapeLogger{
+		  +log_shapes(Shape List)
+	      +shapes: Shape List
       }
 
 ```
