@@ -12,6 +12,7 @@ from polygon import Polygon
 from circle import Circle
 from image_processor import ImageProcessor
 from display import Display
+from logger import ShapeLogger
 
 def test_point():
     point = Point(2, 4)
@@ -87,10 +88,12 @@ def main():
     #test_cam()
 
     camera = Camera()
+    shape_logger = ShapeLogger()
     display = Display("Detected Shapes", ms_wait=30)
     while display.alive:
         img = camera.requestImage()
         shapes, ts = ImageProcessor(img)
+        shape_logger.log_shapes(shapes, ts)
         display.drawContours(img, shapes)
 
     camera.release()

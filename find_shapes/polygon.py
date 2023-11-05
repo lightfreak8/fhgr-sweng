@@ -6,11 +6,13 @@ polygon containing points
 
 changes:
 1.0     2023-10-27      created
+1.1     2023-11-04      add: getCenter
 
 public functions:
     __init__(self):     constructor, pass list of Point (s)
     __str__(self):      string representation
     getName(self):      print name of the polygon
+    getCenter(self):    return center of circle (Point)
 
 """
 
@@ -52,6 +54,13 @@ class Polygon(Shape):
         else:
             return ""
             #raise Exception(f'Unknown polygon name containing {len(self.points))} points')
+
+    def getCenter(self):
+        center = Point()
+        for point in self.points:
+            center += point
+        center /= len(self.points)
+        return center
 
     def getContour(self):
         flat = []

@@ -6,11 +6,13 @@ circle containing position and radius
 
 changes:
 1.0     2023-10-27      created
+1.1     2023-11-04      add: getCenter
 
 public functions:
     __init__(self):     constructor, pass point and radius
     __str__(self):      string representation
     getName(self):      print name of the polygon
+    getCenter(self):    return center of circle (Point)
 
 """
 
@@ -31,6 +33,9 @@ class Circle(Shape):
     def __str__(self):
         s = f'[{self.origin}, {self.radius}]'
         return s
+
+    def getCenter(self):
+        return self.origin
 
     def getName(self):
         return 'Circle'
